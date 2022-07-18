@@ -5,21 +5,21 @@ project "ImGui"
 
 	targetdir "../bin/%{cfg.buildcfg}"
 	objdir "../obj/%{cfg.buildcfg}"
-	
+
 	includedirs { "imgui/", "imgui/examples/", "glad/include", "glfw/include/" }
 
 	files
 	{
 		"imgui/*.cpp",
-		"imgui/examples/imgui_impl_glfw.cpp",
-		"imgui/examples/imgui_impl_opengl3.cpp"
+		"imgui/backends/imgui_impl_glfw.cpp",
+		"imgui/backends/imgui_impl_opengl3.cpp"
 	}
 
-	defines 
+	defines
 	{
 		"IMGUI_IMPL_OPENGL_LOADER_GLAD"
 	}
-    
+
 	filter "system:linux"
 		pic "On"
 
@@ -35,8 +35,8 @@ project "ImGui"
 		systemversion "latest"
 		staticruntime "On"
 
-		defines 
-		{ 
+		defines
+		{
 			"_IMGUI_WIN32",
 			"_CRT_SECURE_NO_WARNINGS"
 		}
