@@ -2,8 +2,8 @@
 
 #include "gl_utils.h"
 
-Renderer2D::Renderer2D(Shader &shader, WindowData *windowData, int maxBatchQuadCount)
-    : m_Shader(shader), m_WindowData(windowData), m_MaxBatchVertexCount(maxBatchQuadCount * 4)
+Renderer2D::Renderer2D(Shader &shader, Framebuffer &framebuffer, WindowData *windowData, int maxBatchQuadCount)
+    : m_Shader(shader), m_Framebuffer(framebuffer), m_WindowData(windowData), m_MaxBatchVertexCount(maxBatchQuadCount * 4)
 {
 }
 
@@ -66,6 +66,8 @@ void Renderer2D::Destroy()
 
 void Renderer2D::Start()
 {
+    m_Framebuffer.Invalidate();
+    m_Framebuffer.Bind();
     m_ProjectionMatrix = glm::ortho(0.0f, (float)m_WindowData->width, (float)m_WindowData->height, 0.0f, 0.0f, -1000.0f);
 
     m_Shader.Bind();
@@ -84,6 +86,7 @@ void Renderer2D::Start()
 void Renderer2D::End()
 {
     DrawBatch();
+    m_Framebuffer.Unbind();
 }
 
 void Renderer2D::DrawQuad(glm::vec2 position, glm::vec2 scale, glm::vec4 color)
@@ -118,6 +121,8 @@ void Renderer2D::DrawImGui()
     ImGui::Text("FPS: %f", ImGui::GetIO().Framerate);
     ImGui::Text("Batch count: %d", m_TotalBatchCount);
     ImGui::Text("Quad count: %d", m_TotalVertexCount / 4);
+    uint32_t textureID = m_Framebuffer.GetColorAttachmentRendererID();
+    ImGui::Image((void*)textureID, ImVec2{ 960, 540 });
     ImGui::End();
 #endif
 }

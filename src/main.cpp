@@ -18,7 +18,12 @@ int main()
     if (!shader.Create())
         return 1;
 
-    Renderer2D renderer(shader, window.GetDataPointer(), 100);
+    FramebufferSpecification fbSpec;
+    fbSpec.Width = 960;
+    fbSpec.Height = 540;
+    Framebuffer framebuffer(fbSpec);
+
+    Renderer2D renderer(shader, framebuffer, window.GetDataPointer(), 100);
     renderer.Create();
 
     // Setup ImGui
@@ -32,7 +37,6 @@ int main()
     ImGui_ImplOpenGL3_Init("#version 130");
 
     bool show_demo_window = true;
-
     while (!window.ShouldClose())
     {
         glClear(GL_COLOR_BUFFER_BIT);

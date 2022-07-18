@@ -3,6 +3,7 @@
 #include "engine.h"
 #include "shader.h"
 #include "window.h"
+#include "framebuffer.h"
 
 #define DEFAULT_MAX_BATCH_QUAD_COUNT 100 * 100
 
@@ -29,7 +30,7 @@ struct Renderer2DBatch
 class Renderer2D
 {
 public:
-    Renderer2D(Shader &shader, WindowData *windowData, int maxBatchQuadCount = DEFAULT_MAX_BATCH_QUAD_COUNT);
+    Renderer2D(Shader &shader, Framebuffer &framebuffer, WindowData *windowData, int maxBatchQuadCount = DEFAULT_MAX_BATCH_QUAD_COUNT);
     ~Renderer2D();
 
     bool Create();
@@ -44,6 +45,7 @@ public:
 
 private:
     Shader &m_Shader;
+    Framebuffer &m_Framebuffer;
 
     glm::mat4 m_ProjectionMatrix;
     glm::mat4 m_ViewMatrix;
@@ -59,6 +61,7 @@ private:
     unsigned int m_Vbo;
     unsigned int m_Ibo;
     unsigned int m_VertexCount;
+
 
     Renderer2DVertexData *m_VertexData;
     Renderer2DVertexData *m_VertexDataPointer;
