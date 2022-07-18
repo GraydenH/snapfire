@@ -1,6 +1,6 @@
-workspace "OpenGLBoilerPlate"
+workspace "Snapfire"
     configurations { "Debug", "Release" }
-    startproject "OpenGLBoilerPlate"
+    startproject "Snapfire"
 
     flags { "MultiProcessorCompile" }
 
@@ -13,7 +13,7 @@ workspace "OpenGLBoilerPlate"
         optimize "Speed"
         flags { "LinkTimeOptimization" }
 
-project "OpenGLBoilerPlate"
+project "Snapfire"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++17"
@@ -23,7 +23,7 @@ project "OpenGLBoilerPlate"
     objdir "obj/%{cfg.buildcfg}"
 
     includedirs { "include/", "libs/glad/include/", "libs/glfw/include/", "libs/glm/", "libs/imgui/", "libs/imgui/examples" }
-    
+
     files { "src/*.cpp" }
 
     links { "GLFW", "GLM", "GLAD", "ImGui" }
